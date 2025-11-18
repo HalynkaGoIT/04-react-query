@@ -5,7 +5,9 @@ import ReactPaginate from "react-paginate";
 
 import css from "./App.module.css";
 
-import fetchMovies, {type MovieHTTPResponse} from "../../services/movieService";
+import fetchMovies, {
+  type MovieHTTPResponse,
+} from "../../services/movieService";
 import type { Movie } from "../../types/movie";
 
 import SearchBar from "../SearchBar/SearchBar";
@@ -19,7 +21,7 @@ export default function App() {
   const [page, setPage] = useState<number>(1);
 
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  
+
   const { data, isSuccess, isLoading, isError } = useQuery<MovieHTTPResponse>({
     queryKey: ["movies", query, page],
     queryFn: () => fetchMovies(query, page),
@@ -43,14 +45,13 @@ export default function App() {
     setSelectedMovie(null);
   };
 
-  
   const handleSearch = (newQuery: string) => {
     const trimmed = newQuery.trim();
     setQuery(trimmed);
-    setPage(1); 
+    setPage(1);
     setSelectedMovie(null);
   };
-  
+
   return (
     <div className={css.app}>
       {selectedMovie && (
@@ -66,8 +67,8 @@ export default function App() {
           pageCount={totalPages}
           pageRangeDisplayed={5}
           marginPagesDisplayed={1}
-          onPageChange={({ selected }) => setPage(selected + 1)} 
-          forcePage={page - 1} 
+          onPageChange={({ selected }) => setPage(selected + 1)}
+          forcePage={page - 1}
           containerClassName={css.pagination}
           activeClassName={css.active}
           nextLabel="→"

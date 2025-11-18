@@ -10,7 +10,10 @@ export interface MovieHTTPResponse {
   total_results: number;
 }
 
-export default async function fetchMovies(topic: string, page: number): Promise<MovieHTTPResponse> {
+export default async function fetchMovies(
+  topic: string,
+  page: number,
+): Promise<MovieHTTPResponse> {
   const response = await axios.get<MovieHTTPResponse>(
     "https://api.themoviedb.org/3/search/movie",
     {
@@ -20,7 +23,7 @@ export default async function fetchMovies(topic: string, page: number): Promise<
       },
     },
   );
-  
+
   console.log(response.data);
   return response.data;
 }
